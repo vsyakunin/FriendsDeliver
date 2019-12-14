@@ -1,11 +1,11 @@
 # FriendsDeliver 
 
-## INTRODUCTION 
+## Introduction 
 'FriendsDeliver' is a web-application designed to deliver parcels/packages with a help of other users. 
 
 This project is being done during the LearnPython course by Vsevolod Yakunin and Evgeny Matveev. 
 
-## DESCRIPTION 
+## Description 
 The project development is currently in progress. 
 
 ## Dependecies
