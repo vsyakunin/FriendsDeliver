@@ -12,4 +12,10 @@ The project development is currently in progress.
 
 ```bash
 pip install -r requirements.txt
+npm install
+```
+## how to run frontend
+
+```bash
+npm start
 ```
