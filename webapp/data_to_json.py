@@ -16,7 +16,8 @@ def get_station(url):
     lines = response.json()['lines']
     for line in lines:
         for s in line['stations']:
-            stations.append({'station_name':s['name'], 'order':s['order'], 'active':True, 'line':line['name']})
+            stations.append({'station_name': s['name'], 'order_on_line': s['order'],
+                            'active':True, 'line': line['name']})
 
     save_to_json('stations', stations)
 
@@ -25,6 +26,7 @@ def get_test_users(url):
     for i in range(1,13):
         response = requests.get(url + str(i))
         user = response.json()['data']
-        users.append({'name':user['first_name'], 'email':user['email'], 'password':user['last_name'] + str(user['id'])})
+        users.append({'name': user['first_name'], 'email': user['email'],
+                    'password': user['last_name'] + str(user['id'])})
 
     save_to_json('users', users)
