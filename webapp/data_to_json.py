@@ -27,6 +27,9 @@ def get_test_users(url):
         response = requests.get(url + str(i))
         user = response.json()['data']
         users.append({'name': user['first_name'], 'email': user['email'],
-                    'password': user['last_name'] + str(user['id'])})
+                        'password': user['last_name'] + str(user['id'])})
 
     save_to_json('users', users)
+
+get_station(STATION_URL)
+get_test_users(USER_URL)
