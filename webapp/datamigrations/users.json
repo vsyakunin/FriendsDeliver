@@ -1,5 +1,5 @@
 [
-    {"id": 1, "name": "Vsevolod", "email": "vsyakunin@yahoo.se", "password": "123456"},
-    {"id": 2, "name": "Mustafa", "email": "mustafamerkhdi@arab.ar", "password": "9583958"},
-    {"id": 3, "name": "Alex", "email": "alexjohnson@gmail.com", "password": "gfhgjshg"}
+    {"user_id": 1, "user_name": "Vsevolod", "email": "vsyakunin@yahoo.se", "password": "123456"},
+    {"user_id": 2, "user_name": "Mustafa", "email": "mustafamerkhdi@arab.ar", "password": "9583958"},
+    {"user_id": 3, "user_name": "Alex", "email": "alexjohnson@gmail.com", "password": "gfhgjshg"}
 ]

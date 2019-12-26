@@ -9,57 +9,37 @@ from webapp.__init__ import create_app
 app = create_app()
 app.app_context().push()
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+data_dir = os.path.join(basedir, 'webapp', 'datamigrations')
 files_list = []
-for file in os.listdir('C:\projects\FriendsDeliver\webapp\datamigrations'):
+all_data = []
+file_model_pairs = {}
+for file in os.listdir(data_dir):
     if file.endswith('.json'):
         files_list.append(file)
 
-def save_user(name, email, password):
-    user_exists = User.query.filter(User.email == email).count()
-    if not user_exists:
-        new_user = User(name=name, email=email, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        
-def save_station(station_name, active, line_name):
-    new_station = Station(station_name=station_name, active=active, line_name=line_name)
-    db.session.add(new_station)
+def save_data(model_name, needed_data):
+    new_data = model_name(**needed_data)
+    db.session.add(new_data)
     db.session.commit()
 
-def save_line(line_name):
-    line_exists = Line.query.filter(Line.line == line_name).count()
-    if not line_exists:
-        new_line = Line(line=line_name)
-        db.session.add(new_line)
-        db.session.commit()
-
-if 'users.json' in files_list:
+for file in files_list:
     data_folder = Path('webapp/datamigrations/')
-    file_to_open = data_folder / 'users.json'
-    with open(file_to_open, 'r', encoding='utf-8') as f:
-        users = json.load(f)
-        for user in users:
-            name=user['name']
-            email=user['email']
-            password=user['password']
-            save_user(name, email, password)
-
-if 'stations.json' in files_list:
-    data_folder = Path('webapp/datamigrations/')
-    file_to_open = data_folder / 'stations.json'
+    file_to_open = data_folder / file
+    file_name = file.replace('.json','')
     with open(file_to_open, 'r', encoding='cp1251') as f:
-        stations = json.load(f)
-        for station in stations:
-            station_name=station['Station']
-            status=station['Status']
-            if status=='действует':
-                active=True
-            else:
-                active=False      
-            line_name=station['Line']
-            save_station(station_name, active, line_name)
-            save_line(line_name)
-            
+        all_data.append(json.load(f))
+        file_model_pairs[file_name] = str(file_name).capitalize()[:-1]
 
+for i in range (len(all_data)):
+    model_name = list(file_model_pairs.values())[i]
+    model_name = eval(model_name)
+    data_to_save = all_data[i]
+    
+    for k in range (len(data_to_save)):
+        needed_data = data_to_save[k]
+        save_data(model_name, needed_data)
+
+    
 
 
