@@ -4,9 +4,10 @@ import requests
 
 STATION_URL = 'https://api.hh.ru/metro/1'
 USER_URL = 'https://reqres.in/api/users/'
+ROOT_DIR = os.path.join(os.path.dirname(__file__), 'datamigrations')
 
 def save_to_json(filename, data):
-    json_file = os.path.join(os.path.dirname(__file__), 'datamigrations', filename + '.json')
+    json_file = os.path.join(ROOT_DIR, filename + '.json')
     with open(json_file, 'w', encoding='utf8') as f:
         json.dump(data, f, ensure_ascii=False)
 
@@ -27,7 +28,7 @@ def get_test_users(url):
         response = requests.get(url + str(i))
         user = response.json()['data']
         users.append({'name': user['first_name'], 'email': user['email'],
-                        'password': user['last_name'] + str(user['id'])})
+                    'password': user['last_name'] + str(user['id'])})
 
     save_to_json('users', users)
 
