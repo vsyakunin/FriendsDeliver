@@ -16,8 +16,8 @@ class Station(db.Model):
     __tablename__ = 'stations'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    active = db.Column(db.Boolean, nullable=False)
-    line_id = db.Column(db.Integer, nullable=False)
+    active = db.Column(db.Boolean, nullable=False) 
+    line_id = db.Column(db.Integer, nullable=True)
     order_on_line = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
@@ -26,7 +26,7 @@ class Station(db.Model):
 class Line(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
-    color = db.Column(db.String, nullable=True)
+    color = db.Column(db.String, nullable=True) 
 
     def __repr__(self):
         return '<Line {}>'.format(self.line_name)
