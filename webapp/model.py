@@ -4,8 +4,8 @@ db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'users'
-    user_id = db.Column(db.Integer, primary_key=True)
-    user_name = db.Column(db.String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.Text, nullable=False)
     
@@ -14,10 +14,9 @@ class User(db.Model):
 
 class Station(db.Model):
     __tablename__ = 'stations'
-    station_id = db.Column(db.Integer, primary_key=True)
-    station_name = db.Column(db.String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
     active = db.Column(db.Boolean, nullable=False) 
-    line_name = db.Column(db.String, nullable=False)
     line_id = db.Column(db.Integer, nullable=True)
     order_on_line = db.Column(db.Integer, nullable=True)
 
@@ -25,8 +24,8 @@ class Station(db.Model):
         return '<Station {}>'.format(self.station_name)      
 
 class Line(db.Model):
-    line_id = db.Column(db.Integer, primary_key=True)
-    line_name = db.Column(db.String, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
     color = db.Column(db.String, nullable=True) 
 
     def __repr__(self):
@@ -34,15 +33,15 @@ class Line(db.Model):
 
 
 users_stations = db.Table('users_stations',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.user_id')),
-    db.Column('station_id', db.Integer, db.ForeignKey('stations.station_id')),
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('station_id', db.Integer, db.ForeignKey('stations.id')),
     db.PrimaryKeyConstraint('user_id', 'station_id', name='users_stations_primary_key'),
     db.Column('weekday', db.Integer, nullable=False)
 )
 
 stations_connections = db.Table('stations_connections',
-    db.Column('from_id', db.Integer, db.ForeignKey('stations.station_id')),
-    db.Column('to_id', db.Integer, db.ForeignKey('stations.station_id')),
+    db.Column('from_id', db.Integer, db.ForeignKey('stations.id')),
+    db.Column('to_id', db.Integer, db.ForeignKey('stations.id')),
     db.PrimaryKeyConstraint('from_id', 'to_id', name='stations_connections_primary_key')
 )
 

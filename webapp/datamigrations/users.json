@@ -1,5 +1,1 @@
-[
-    {"user_id": 1, "user_name": "Vsevolod", "email": "vsyakunin@yahoo.se", "password": "123456"},
-    {"user_id": 2, "user_name": "Mustafa", "email": "mustafamerkhdi@arab.ar", "password": "9583958"},
-    {"user_id": 3, "user_name": "Alex", "email": "alexjohnson@gmail.com", "password": "gfhgjshg"}
-]
+[{"name": "George", "email": "george.bluth@reqres.in", "password": "Bluth1"}, {"name": "Janet", "email": "janet.weaver@reqres.in", "password": "Weaver2"}, {"name": "Emma", "email": "emma.wong@reqres.in", "password": "Wong3"}, {"name": "Eve", "email": "eve.holt@reqres.in", "password": "Holt4"}, {"name": "Charles", "email": "charles.morris@reqres.in", "password": "Morris5"}, {"name": "Tracey", "email": "tracey.ramos@reqres.in", "password": "Ramos6"}, {"name": "Michael", "email": "michael.lawson@reqres.in", "password": "Lawson7"}, {"name": "Lindsay", "email": "lindsay.ferguson@reqres.in", "password": "Ferguson8"}, {"name": "Tobias", "email": "tobias.funke@reqres.in", "password": "Funke9"}, {"name": "Byron", "email": "byron.fields@reqres.in", "password": "Fields10"}, {"name": "George", "email": "george.edwards@reqres.in", "password": "Edwards11"}, {"name": "Rachel", "email": "rachel.howell@reqres.in", "password": "Howell12"}]
