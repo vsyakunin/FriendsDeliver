@@ -19,7 +19,7 @@ def get_stations(url):
     for line in items:
         lines.append({'id': line['id'], 'name': line['name'], 'color': line['hex_color']})
         for s in line['stations']:
-            stations.append({'name': s['name'], 'active':True, 'line_id': line['id'],
+            stations.append({'name': s['name'], 'active': True, 'line_id': line['id'],
                             'order_on_line': s['order']})
 
     save_to_json('lines', lines)
@@ -31,7 +31,7 @@ def get_test_users(url):
         response = requests.get(url + str(i))
         user = response.json()['data']
         users.append({'name': user['first_name'], 'email': user['email'],
-                    'password': user['last_name'] + str(user['id'])})
+                    'password': user['last_name'] + str(user['id']), 'delivers': True})
 
     save_to_json('users', users)
 
