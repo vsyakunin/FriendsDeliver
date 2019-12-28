@@ -15,23 +15,21 @@ class User(db.Model):
 class Station(db.Model):
     __tablename__ = 'stations'
     id = db.Column(db.Integer, primary_key=True)
-    station_name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False)
     active = db.Column(db.Boolean, nullable=False)
-    line_name = db.Column(db.String, nullable=False)
     line_id = db.Column(db.Integer, nullable=False)
     order_on_line = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return '<Station {}>'.format(self.station_name)      
+        return '<Station {}>'.format(self.station_name)
 
 class Line(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    line = db.Column(db.String, nullable=False)
-    color = db.Column(db.String, nullable=True) 
-    line_id = db.Column(db.Integer, nullable=True)  
+    name = db.Column(db.String, nullable=False)
+    color = db.Column(db.String, nullable=True)
 
     def __repr__(self):
-        return '<Line {}>'.format(self.line_name)     
+        return '<Line {}>'.format(self.line_name)
 
 
 users_stations = db.Table('users_stations',

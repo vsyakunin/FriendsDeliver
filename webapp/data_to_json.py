@@ -8,18 +8,21 @@ ROOT_DIR = os.path.join(os.path.dirname(__file__), 'datamigrations')
 
 def save_to_json(filename, data):
     json_file = os.path.join(ROOT_DIR, filename + '.json')
-    with open(json_file, 'w', encoding='utf8') as f:
+    with open(json_file, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
 
-def get_station(url):
+def get_stations(url):
     stations = []
+    lines = []
     response = requests.get(url)
-    lines = response.json()['lines']
-    for line in lines:
+    items = response.json()['lines']
+    for line in items:
+        lines.append({'id': line['id'], 'name': line['name'], 'color': line['hex_color']})
         for s in line['stations']:
-            stations.append({'station_name': s['name'], 'order_on_line': s['order'],
-                            'active':True, 'line': line['name']})
+            stations.append({'name': s['name'], 'active':True, 'line_id': line['id'],
+                            'order_on_line': s['order']})
 
+    save_to_json('lines', lines)
     save_to_json('stations', stations)
 
 def get_test_users(url):
@@ -32,5 +35,5 @@ def get_test_users(url):
 
     save_to_json('users', users)
 
-get_station(STATION_URL)
+get_stations(STATION_URL)
 get_test_users(USER_URL)
