@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 import webapp 
-from webapp.model import db, User, Station, Line
+from webapp.model import db, User, Station, Line, UserStation
 import json
 from flask_sqlalchemy import SQLAlchemy
 from webapp.__init__ import create_app
@@ -12,7 +12,8 @@ app.app_context().push()
 MODELS_MAP = {
     'users.json': User,
     'stations.json': Station,
-    'lines.json': Line
+    'lines.json': Line,
+    'users_stations.json': UserStation
 }
 
 basedir = os.path.abspath(os.path.dirname(__file__))

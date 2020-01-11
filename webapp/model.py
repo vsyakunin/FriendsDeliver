@@ -25,6 +25,7 @@ class Station(db.Model):
         return '<Station {}>'.format(self.station_name)
 
 class Line(db.Model):
+    __tablename__ = 'lines'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     color = db.Column(db.String, nullable=True) 
@@ -32,14 +33,14 @@ class Line(db.Model):
     def __repr__(self):
         return '<Line {}>'.format(self.line_name)
 
-
-users_stations = db.Table('users_stations',
-    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('station_id', db.Integer, db.ForeignKey('stations.id')),
-    db.PrimaryKeyConstraint('user_id', 'station_id', name='users_stations_primary_key'),
-    db.Column('weekday', db.Integer, nullable=False)
-)
-
+class UserStation(db.Model):
+    __tablename__ = 'users_stations'
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    station_id = db.Column(db.Integer, db.ForeignKey('stations.id'))
+    weekday = db.Column(db.Integer, nullable=False)
+    __table_args__ = (
+        db.PrimaryKeyConstraint('user_id', 'station_id', 'weekday', name='users_stations_primary_key'),)
+    
 stations_connections = db.Table('stations_connections',
     db.Column('from_id', db.Integer, db.ForeignKey('stations.id')),
     db.Column('to_id', db.Integer, db.ForeignKey('stations.id')),
