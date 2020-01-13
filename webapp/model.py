@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import check_password_hash, generate_password_hash
 
 db = SQLAlchemy()
 
@@ -20,6 +21,12 @@ class Station(db.Model):
     active = db.Column(db.Boolean, nullable=False) 
     line_id = db.Column(db.Integer, nullable=True)
     order_on_line = db.Column(db.Integer, nullable=True)
+
+     def set_password(self, password):
+        self.password = generate_password_hash(password)
+
+     def check_password(self, password):
+        return check_password_hash(self.password, password)
 
     def __repr__(self):
         return '<Station {}>'.format(self.station_name)
