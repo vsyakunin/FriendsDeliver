@@ -1,4 +1,4 @@
-from flask import Flask, Response, jsonify
+from flask import Flask, Response, jsonify, request
 from webapp.model import db, User, Station, UserStation 
 from marshmallow import Schema, fields
 
@@ -35,15 +35,29 @@ def stations():
 
 @app.route('/v1/stations/users/')
 def users_stations():
-    users_list = User.query.join(
+    station_from = request.args.get('from', type = int)
+    station_to = request.args.get('to', type = int)
+
+    users_from = User.query.join(
         UserStation, 
         User.id == UserStation.user_id
     ).filter(
-        UserStation.station_id == 167
-    ).all()
+        UserStation.station_id == station_from
+    )
+    
+    users_to = User.query.join(
+        UserStation, 
+        User.id == UserStation.user_id
+    ).filter(
+        UserStation.station_id == station_to
+    )
+
+    users_list = users_from.join(users_to).all()
+    
     schema = UserSchema(many = True)
     result = schema.dump(users_list)
     return jsonify(result)
+   
     
     
 
