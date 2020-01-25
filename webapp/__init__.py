@@ -26,9 +26,9 @@ def user_exists(user_id):
     users_list = User.query.filter(User.id == user_id).all()
     return len(users_list)>0
 
-@app.route('/hi')
-def index():
-    return 'hi'
+def station_exists(station_id):
+    stations_list = Station.query.filter(Station.id == station_id).all()
+    return len(stations_list)>0
 
 @app.route('/v1/stations/')
 def stations():    
@@ -40,8 +40,11 @@ def stations():
 @app.route('/v1/stations/users/')
 def users_stations():
     station_from = request.args.get('from', type = int)
+    if not station_exists(station_from):
+        abort(404)
     station_to = request.args.get('to', type = int)
-
+    if not station_exists(station_to):
+        abort(404)
     users_from = User.query.join(
         UserStation, 
         User.id == UserStation.user_id
@@ -93,6 +96,8 @@ def add_station(user_id):
 @app.route('/v1/users/<user_id>/stations/<station_id>/', methods=['DELETE']) 
 def delete_station(user_id, station_id):
     if not user_exists(user_id):
+        abort(404)
+    if not station_exists(station_id):
         abort(404)
     record_to_delete = UserStation.query.filter(
         UserStation.user_id == user_id, 
