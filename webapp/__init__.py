@@ -30,10 +30,6 @@ def station_exists(station_id):
     stations_list = Station.query.filter(Station.id == station_id).all()
     return len(stations_list)>0
 
-@app.route('/hi')
-def index():
-    return 'hi'
-
 @app.route('/v1/stations/')
 def stations():    
     stations_list = Station.query.all()
