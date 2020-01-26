@@ -1,0 +1,9 @@
+import datetime
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, '..', 'webapp.db')
+
+SECRET_KEY = 'please_enter_your_super_secret_key'
+JWT_ACCESS_TOKEN_EXPIRES = datetime.timedelta(days=1)
