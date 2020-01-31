@@ -10,6 +10,7 @@ import '../styles/app.css';
 import PrivateRoute from './private-router';
 import UserPage from './pages/user-page';
 import Auth from './hoc-helpers/with-auth';
+import SearchPage from "./pages/search-page";
 
 export default class App extends Component {
   render() {
@@ -20,6 +21,7 @@ export default class App extends Component {
                 <AppHeader/>
                   <Switch>
                       <PrivateRoute path={"/user"} component={UserPage}/>
+                      <PrivateRoute path={"/search"} component={SearchPage}/>
                       <Route path="/"
                          render={() => <h2>Welcome to FriendsDeliver</h2>}
                          exact />
