@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import check_password_hash, generate_password_hash
+from sqlalchemy.orm import relationship, backref
 
 db = SQLAlchemy()
 
@@ -25,11 +26,12 @@ class Station(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     active = db.Column(db.Boolean, nullable=False) 
-    line_id = db.Column(db.Integer, nullable=True)
+    line_id = db.Column(db.Integer, db.ForeignKey('lines.id'))
+    line = relationship('Line', backref=backref('lines'))
     order_on_line = db.Column(db.Integer, nullable=True)
 
     def __repr__(self):
-        return '<Station {}>'.format(self.station_name)
+        return '<Station {}>'.format(self.name)
 
 class Line(db.Model):
     __tablename__ = 'lines'

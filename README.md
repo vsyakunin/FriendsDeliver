@@ -14,8 +14,22 @@ The project development is currently in progress.
 pip install -r requirements.txt
 npm install
 ```
+## Configure flask app
+Need to rename template file 'config.py.template' into 'config.py'.
+
+## How to run backend
+From macOS and Linux 
+```
+./run.sh
+```
+From Windows
+```
+run.bat
+```
+
 ## How to run frontend
 
 ```bash
 npm start
 ```
+

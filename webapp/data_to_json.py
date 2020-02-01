@@ -1,6 +1,8 @@
 import os
 import json
 import requests
+from werkzeug.security import generate_password_hash
+
 
 STATION_URL = 'https://api.hh.ru/metro/1'
 USER_URL = 'https://reqres.in/api/users/'
@@ -30,8 +32,9 @@ def get_test_users(url):
     for i in range(1,13):
         response = requests.get(url + str(i))
         user = response.json()['data']
+        hash_pass = generate_password_hash(user['last_name'] + str(user['id']))
         users.append({'name': user['first_name'], 'email': user['email'],
-                    'password': user['last_name'] + str(user['id']), 'delivers': True})
+                    'password': hash_pass, 'delivers': True})
 
     save_to_json('users', users)
 
