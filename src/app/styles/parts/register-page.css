@@ -1,0 +1,11 @@
+.form-register {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-control:focus {
+    border-color: #f8f9fa !important;
+    box-shadow: 0 0 0 0.2rem rgba(216, 217, 219, .5) !important;
+}

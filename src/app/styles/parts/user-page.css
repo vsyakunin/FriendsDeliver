@@ -1,0 +1,44 @@
+.userpage {
+    min-height: 20rem;
+}
+
+.no-suggestions {
+    color: #999;
+    padding: 0.5rem;
+}
+
+.suggestions {
+    border: 1px solid #999;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    max-height: 170px;
+    overflow-y: auto;
+    padding-left: 0;
+}
+
+.suggestions li {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.5rem;
+}
+
+.suggestions li div:first-child {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.suggestion-active,
+.suggestions li:hover {
+    background-color: #999;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.suggestions li:not(:last-of-type) {
+    border-bottom: 1px solid #999;
+}
