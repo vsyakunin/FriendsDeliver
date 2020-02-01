@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager, jwt_required, create_access_token, ge
 from webapp.model import db, User, Station, UserStation, Line
 from marshmallow import Schema, fields
 
+
 def create_app():
     app = Flask(__name__)
     app.config.from_pyfile('config.py')
@@ -27,14 +28,17 @@ app = create_app()
 # app = create_app('prod')
 # test_app = create_app('test')
 
+
 class UserSchema(Schema):
     id = fields.Int()
     name = fields.Str()
     email = fields.Str()
 
+
 class LineSchema(Schema):
     name = fields.Str()
     color = fields.Str()
+
 
 class StationSchema(Schema):
     id = fields.Int()
@@ -44,14 +48,11 @@ class StationSchema(Schema):
     order_on_line = fields.Int()
     line = fields.Nested(LineSchema)
 
+
 def user_exists(user_id):
     users_list = User.query.filter(User.id == user_id).all()
     return len(users_list) > 0
 
-<<<<<<< HEAD
-@app.route('/')
-def index():
-    return 'OK'
 
 @app.route('/registration', methods=['POST'])
 def new_user():
@@ -70,6 +71,7 @@ def new_user():
 
     return jsonify({'msg': "Something got wrong"}), 400
 
+
 @app.route('/login', methods=['POST'])
 def login():
     json_data = request.json
@@ -86,11 +88,12 @@ def login():
         return jsonify(access_token=access_token), 200
 
     return jsonify({"msg": "Bad username or password"}), 400
-=======
+
+
 def station_exists(station_id):
     stations_list = Station.query.filter(Station.id == station_id).all()
     return len(stations_list)>0
->>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1
+
 
 @app.route('/v1/stations/')
 def stations():
@@ -99,22 +102,18 @@ def stations():
     result = schema.dump(stations_list)
     return jsonify(result)
 
+
 @app.route('/v1/stations/users/')
 @jwt_required
 def users_stations():
-<<<<<<< HEAD
     user_id = get_jwt_identity()
     station_from = request.args.get('from', type=int)
     station_to = request.args.get('to', type=int)
 
-=======
-    station_from = request.args.get('from', type = int)
     if not station_exists(station_from):
         abort(404)
-    station_to = request.args.get('to', type = int)
     if not station_exists(station_to):
         abort(404)
->>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1
     users_from = User.query.join(
         UserStation,
         User.id == UserStation.user_id
@@ -139,6 +138,7 @@ def users_stations():
     result = schema.dump(users_list)
     return jsonify(result)
 
+
 @app.route('/v1/users/<user_id>/stations/')
 def get_station(user_id):
     if not user_exists(user_id):
@@ -153,6 +153,7 @@ def get_station(user_id):
     schema = StationSchema(many=True)
     result = schema.dump(users_stations)
     return jsonify(result)
+
 
 @app.route('/v1/user/stations/', methods=['POST'])
 @jwt_required
@@ -177,20 +178,3 @@ def add_station():
     db.session.add(user_station)
     db.session.commit()
     return jsonify(['record successfully added'])
-<<<<<<< HEAD
-=======
-
-@app.route('/v1/users/<user_id>/stations/<station_id>/', methods=['DELETE']) 
-def delete_station(user_id, station_id):
-    if not user_exists(user_id):
-        abort(404)
-    if not station_exists(station_id):
-        abort(404)
-    record_to_delete = UserStation.query.filter(
-        UserStation.user_id == user_id, 
-        UserStation.station_id==station_id
-    ).first()
-    db.session.delete(record_to_delete)
-    db.session.commit()
-    return jsonify(['record succesfully deleted'])
->>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1
