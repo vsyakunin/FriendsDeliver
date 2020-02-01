@@ -35,6 +35,7 @@ def user_exists(user_id):
     users_list = User.query.filter(User.id == user_id).all()
     return len(users_list) > 0
 
+<<<<<<< HEAD
 @app.route('/')
 def index():
     return 'OK'
@@ -72,6 +73,11 @@ def login():
         return jsonify(access_token=access_token), 200
 
     return jsonify({"msg": "Bad username or password"}), 400
+=======
+def station_exists(station_id):
+    stations_list = Station.query.filter(Station.id == station_id).all()
+    return len(stations_list)>0
+>>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1
 
 @app.route('/v1/stations/')
 def stations():
@@ -83,10 +89,19 @@ def stations():
 @app.route('/v1/stations/users/')
 @jwt_required
 def users_stations():
+<<<<<<< HEAD
     user_id = get_jwt_identity()
     station_from = request.args.get('from', type=int)
     station_to = request.args.get('to', type=int)
 
+=======
+    station_from = request.args.get('from', type = int)
+    if not station_exists(station_from):
+        abort(404)
+    station_to = request.args.get('to', type = int)
+    if not station_exists(station_to):
+        abort(404)
+>>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1
     users_from = User.query.join(
         UserStation,
         User.id == UserStation.user_id
@@ -149,3 +164,20 @@ def add_station():
     db.session.add(user_station)
     db.session.commit()
     return jsonify(['record successfully added'])
+<<<<<<< HEAD
+=======
+
+@app.route('/v1/users/<user_id>/stations/<station_id>/', methods=['DELETE']) 
+def delete_station(user_id, station_id):
+    if not user_exists(user_id):
+        abort(404)
+    if not station_exists(station_id):
+        abort(404)
+    record_to_delete = UserStation.query.filter(
+        UserStation.user_id == user_id, 
+        UserStation.station_id==station_id
+    ).first()
+    db.session.delete(record_to_delete)
+    db.session.commit()
+    return jsonify(['record succesfully deleted'])
+>>>>>>> 0ebf1308820ccf1656b63325c23d22b01b2302c1

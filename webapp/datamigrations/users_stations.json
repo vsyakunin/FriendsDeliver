@@ -1,4 +1,6 @@
 [{"user_id": 1, "station_id": 35, "weekday": 4}, 
  {"user_id": 2, "station_id": 167, "weekday": 6},
  {"user_id": 1, "station_id": 66, "weekday": 4},
- {"user_id": 3, "station_id": 22, "weekday": 4}]
+ {"user_id": 3, "station_id": 22, "weekday": 4},
+ {"user_id": 2, "station_id": 169, "weekday": 6}
+]
