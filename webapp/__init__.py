@@ -10,6 +10,19 @@ def create_app():
 
 app = create_app()
 
+# def create_app(db_type):
+#     app = Flask(__name__)
+#     if db_type == 'prod':
+#         app.config.from_pyfile('config.py')
+#         db.init_app(app)
+#     elif db_type == 'test':
+#         app.config.from_pyfile('test_config.py')
+#         db.init_app(app)
+#     return app  
+
+# app = create_app('prod')
+# test_app = create_app('test')
+
 class UserSchema(Schema):
     id = fields.Int()
     name = fields.Str()
