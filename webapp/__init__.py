@@ -15,19 +15,6 @@ def create_app():
 
 app = create_app()
 
-# def create_app(db_type):
-#     app = Flask(__name__)
-#     if db_type == 'prod':
-#         app.config.from_pyfile('config.py')
-#         db.init_app(app)
-#     elif db_type == 'test':
-#         app.config.from_pyfile('test_config.py')
-#         db.init_app(app)
-#     return app  
-
-# app = create_app('prod')
-# test_app = create_app('test')
-
 
 class UserSchema(Schema):
     id = fields.Int()
@@ -148,6 +135,7 @@ def get_station(user_id):
         Station.id == UserStation.station_id
     ).filter(
         UserStation.user_id == user_id
+
     ).all()
 
     schema = StationSchema(many=True)
@@ -177,4 +165,4 @@ def add_station():
     user_station = UserStation(user_id=user_id, station_id=station_id, weekday=weekday)
     db.session.add(user_station)
     db.session.commit()
-    return jsonify(['record successfully added'])
+    return jsonify({'msg':'record successfully added'})
