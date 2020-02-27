@@ -57,9 +57,11 @@ export default class SearchPage extends Component {
                     {
                         this.state.toStation && this.state.fromStation ?
                             this.state.users.length > 0 ?
-                                this.state.users.map(({ id, name }) => {
+                                this.state.users.map(({ id, name, email }) => {
                                     return (
-                                        <p key={id}>{name}</p>
+                                        <div key={id}>
+                                            <p>{name}</p><p>{email}</p>
+                                        </div>
                                     )
                                 })
                             : <p>Users not found, please try later!</p>
